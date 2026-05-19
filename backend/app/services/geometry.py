@@ -55,3 +55,10 @@ def px_to_mm(value_px: float, coin_diameter_px: float, coin_mm: float = COIN_DIA
     if coin_diameter_px <= 0:
         return 0.0
     return value_px * (coin_mm / coin_diameter_px)
+
+
+def inscribed_circle_area_mm2(width_mm: float, height_mm: float) -> tuple[float, float]:
+    """Return (radius_mm, area_mm2) of the circle inscribed in the bounding box."""
+    import math
+    radius = min(width_mm, height_mm) / 2.0
+    return radius, math.pi * radius * radius

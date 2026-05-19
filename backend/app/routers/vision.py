@@ -19,6 +19,7 @@ from app.services import gemini_bbox
 from app.services.geometry import (
     COIN_DIAMETER_MM,
     coin_diameter_px_from_bbox,
+    inscribed_circle_area_mm2,
     norm_bbox_to_px,
     px_to_mm,
 )
@@ -199,7 +200,7 @@ async def measure_photo(
 
     food_w_mm = px_to_mm(float(fw), coin_d_px, COIN_DIAMETER_MM)
     food_h_mm = px_to_mm(float(fh), coin_d_px, COIN_DIAMETER_MM)
-    food_area_mm2 = food_w_mm * food_h_mm
+    food_radius_mm, food_area_mm2 = inscribed_circle_area_mm2(food_w_mm, food_h_mm)
 
     return VisionMeasureResponse(
         image_width_px=img_w,
@@ -226,5 +227,6 @@ async def measure_photo(
         coin_diameter_mm=COIN_DIAMETER_MM,
         food_width_mm=round(food_w_mm, 2),
         food_height_mm=round(food_h_mm, 2),
+        food_radius_mm=round(food_radius_mm, 2),
         food_area_mm2=round(food_area_mm2, 2),
     )

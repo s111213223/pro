@@ -30,4 +30,5 @@ class VisionMeasureResponse(BaseModel):
     coin_diameter_mm: float = 26.0
     food_width_mm: float
     food_height_mm: float
+    food_radius_mm: float
     food_area_mm2: float
